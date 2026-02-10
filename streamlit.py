@@ -17,7 +17,6 @@ st.write(
     "Please answer the questions below as accurately as possible. "
     "If you are unsure about any field, you may leave the default values."
 )
-st.warning("This tool is for educational purposes only and is not a medical diagnosis.")
 
 with st.expander("How to use this tool"):
     st.markdown(
@@ -29,9 +28,9 @@ with st.expander("How to use this tool"):
 """
     )
 
-# =========================
+#
 # Load model
-# =========================
+
 MODEL_PATH = "Models/breast_cancer_lr_v1.pkl"
 
 @st.cache_resource
@@ -50,9 +49,9 @@ if not hasattr(model, "feature_names_"):
 
 feature_columns = list(model.feature_names_)
 
-# =========================
+
 # Helper functions
-# =========================
+
 def make_empty_input(columns):
     return pd.DataFrame([np.zeros(len(columns))], columns=columns)
 
@@ -80,9 +79,9 @@ if "nodes_examined" not in st.session_state:
 if "nodes_positive" not in st.session_state:
     st.session_state["nodes_positive"] = 0
 
-# =========================
+
 # Sample data button
-# =========================
+
 col1, col2 = st.columns([1, 2])
 with col1:
     if st.button("Fill sample values"):
@@ -95,9 +94,9 @@ with col1:
 with col2:
     st.caption("This helps test the app without needing medical knowledge.")
 
-# =========================
+
 # Build input row
-# =========================
+
 user_input = make_empty_input(feature_columns)
 
 with st.form("prediction_form"):
@@ -167,9 +166,9 @@ with st.form("prediction_form"):
 
     submitted = st.form_submit_button("Predict")
 
-# =========================
+
 # Prediction
-# =========================
+
 if submitted:
     try:
         prediction = model.predict(user_input)[0]
